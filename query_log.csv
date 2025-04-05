@@ -1,0 +1,17 @@
+2025-04-05T13:24:46.799421,tampilkan jumlah purchase order selama 3 bulan terakhir,"SELECT COUNT(*) AS TotalPurchaseOrders
+FROM PurchaseOrders
+WHERE DateOfOrder >= DATEADD(MONTH, -3, GETDATE())"
+2025-04-05T13:27:41.401886,tampilkan jumlah purchase order selama 3 bulan terakhir,"SELECT COUNT(*) AS TotalPurchaseOrders
+FROM PurchaseOrders
+WHERE DateOfOrder >= DATEADD(MONTH, -3, GETDATE())"
+2025-04-05T13:35:19.616935,tampilkan permintaan purchase order selama 3 bulan terakhir,"SELECT *
+FROM PurchaseOrders
+WHERE DateOfOrder >= DATEADD(MONTH, -3, GETDATE())"
+2025-04-05T13:38:00.341215,barang apa yang paling sering di request selama 3 bulan terakhir,"SELECT TOP 1 ProductId, COUNT(ProductId) AS TotalRequests
+FROM PurchaseRequestDetails
+WHERE CreatedDate >= DATEADD(MONTH, -3, GETDATE())
+GROUP BY ProductId
+ORDER BY COUNT(ProductId) DESC;"
+2025-04-05T13:39:51.598918,berapa budget yang harus disiapkan per tahun agar tidak overbudget ataupun kekurangan budget. Status Approved yang digunakan adalah APPROVED,"SELECT SUM(TotalAmount) AS TotalBudget
+FROM PurchaseRequests
+WHERE StatusId = 'APPROVED'"
