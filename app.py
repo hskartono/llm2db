@@ -209,8 +209,8 @@ if "conn" in st.session_state:
                     st.dataframe([dict(zip(columns, row)) for row in rows])
                     
                     # First, check the structure of 'rows' and 'columns'
-                    st.write(f"Rows structure: {rows[:2]} (showing first 2)")
-                    st.write(f"Columns: {columns}")
+                    # st.write(f"Rows structure: {rows[:2]} (showing first 2)")
+                    # st.write(f"Columns: {columns}")
                     
                     # Instead of checking instance types, check if length matches
                     if rows and len(columns) > 0:
@@ -230,23 +230,23 @@ if "conn" in st.session_state:
                                 st.warning("Data shape mismatch: Using only the first column")
 
                     # Chart
-                    st.subheader("\U0001F4CA Visualisasi Otomatis")
-                    chart_type = st.selectbox("Pilih tipe chart", ["Bar", "Line", "Area", "Scatter"])
-                    if len(columns) >= 2:
-                        x_col = st.selectbox("Kolom X", columns)
-                        y_col = st.selectbox("Kolom Y", columns, index=1)
-                        if chart_type == "Bar":
-                            chart = alt.Chart(df).mark_bar().encode(x=x_col, y=y_col)
-                        elif chart_type == "Line":
-                            chart = alt.Chart(df).mark_line().encode(x=x_col, y=y_col)
-                        elif chart_type == "Area":
-                            chart = alt.Chart(df).mark_area().encode(x=x_col, y=y_col)
-                        elif chart_type == "Scatter":
-                            chart = alt.Chart(df).mark_circle(size=60).encode(x=x_col, y=y_col)
-                        st.altair_chart(chart, use_container_width=True)
-                    else:
-                        st.info("\U0001F4CC Data terlalu sedikit untuk divisualisasikan.")
-
+                    # st.subheader("\U0001F4CA Visualisasi Otomatis")
+                    # chart_type = st.selectbox("Pilih tipe chart", ["Bar", "Line", "Area", "Scatter"])
+                    # if len(columns) >= 2:
+                    #     x_col = st.selectbox("Kolom X", columns)
+                    #     y_col = st.selectbox("Kolom Y", columns, index=1)
+                    #     if chart_type == "Bar":
+                    #         chart = alt.Chart(df).mark_bar().encode(x=x_col, y=y_col)
+                    #     elif chart_type == "Line":
+                    #         chart = alt.Chart(df).mark_line().encode(x=x_col, y=y_col)
+                    #     elif chart_type == "Area":
+                    #         chart = alt.Chart(df).mark_area().encode(x=x_col, y=y_col)
+                    #     elif chart_type == "Scatter":
+                    #         chart = alt.Chart(df).mark_circle(size=60).encode(x=x_col, y=y_col)
+                    #     st.altair_chart(chart, use_container_width=True)
+                    # else:
+                    #     st.info("\U0001F4CC Data terlalu sedikit untuk divisualisasikan.")
+                    export_data(columns, [dict(zip(columns, row)) for row in rows])
                     log_query(st.session_state.user_input, st.session_state.sql_query)
                 else:
                     st.warning("\u26A0\uFE0F Query valid tapi tidak mengembalikan hasil.")
