@@ -15,3 +15,49 @@ ORDER BY COUNT(ProductId) DESC;"
 2025-04-05T13:39:51.598918,berapa budget yang harus disiapkan per tahun agar tidak overbudget ataupun kekurangan budget. Status Approved yang digunakan adalah APPROVED,"SELECT SUM(TotalAmount) AS TotalBudget
 FROM PurchaseRequests
 WHERE StatusId = 'APPROVED'"
+2025-04-07T11:38:54.502159,tampilkan jumlah purchase order selama 3 bulan terakhir,"SELECT COUNT(*) AS TotalPurchaseOrders
+FROM PurchaseOrders
+WHERE DateOfOrder >= DATEADD(MONTH, -3, GETDATE())"
+2025-04-07T11:39:15.048780,tampilkan 10 purchase order terakhir,"SELECT TOP 10 *
+FROM PurchaseOrders
+ORDER BY Id DESC;"
+2025-04-07T11:40:27.397257,ada tabel apa saja yang ada di database?,"SELECT TABLE_NAME
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_TYPE = 'BASE TABLE'
+AND TABLE_CATALOG = 'YourDatabaseName';"
+2025-04-07T11:57:13.405278,tampilkan data permintaan pembelian sebanyak 10 data,"SELECT TOP 10 *
+FROM PurchaseRequests;"
+2025-04-07T11:58:22.457707,tampilkan 10 permintaan pembelian,SELECT TOP 10 * FROM PurchaseRequests;
+2025-04-07T11:59:30.202405,tampilkan 10 barang yang paling sering di minta,"SELECT TOP 10 ProductId, COUNT(ProductId) AS TotalRequests
+FROM PurchaseRequestDetails
+GROUP BY ProductId
+ORDER BY COUNT(ProductId) DESC;"
+2025-04-07T12:00:29.809578,"tampilkan jumlah permintaan pembelian, kelompokkan berdasarkan statusnya","SELECT PurchaseRequestStatuss.Name AS Status, COUNT(*) AS Total
+FROM PurchaseRequests
+JOIN PurchaseRequestStatuss ON PurchaseRequests.PurchaseRequestStatusId = PurchaseRequestStatuss.Id
+GROUP BY PurchaseRequests.PurchaseRequestStatusId, PurchaseRequestStatuss.Name;"
+2025-04-07T12:00:41.552118,"tampilkan jumlah permintaan pembelian, kelompokkan berdasarkan statusnya, buat dalam bentuk chart","SELECT PurchaseRequestStatuss.Name AS Status, COUNT(*) AS Total
+FROM PurchaseRequests
+JOIN PurchaseRequestStatuss ON PurchaseRequests.PurchaseRequestStatusId = PurchaseRequestStatuss.Id
+GROUP BY PurchaseRequestStatuss.Name;"
+2025-04-07T12:00:55.403055,"tampilkan jumlah permintaan pembelian, kelompokkan berdasarkan statusnya","SELECT PurchaseRequestStatuss.Name AS Status, COUNT(*) AS Total
+FROM PurchaseRequests
+JOIN PurchaseRequestStatuss ON PurchaseRequests.PurchaseRequestStatusId = PurchaseRequestStatuss.Id
+GROUP BY PurchaseRequests.PurchaseRequestStatusId, PurchaseRequestStatuss.Name;"
+2025-04-07T13:53:13.505276,tampilkan user,SELECT * FROM UserInfos;
+2025-04-07T14:31:43.080186,tampilkan jumlah permintaan pembelian dikelompokkan berdasarkan status,"SELECT PurchaseRequestStatuss.Name AS Status,
+       COUNT(*) AS Total
+FROM PurchaseRequests
+JOIN PurchaseRequestStatuss ON PurchaseRequests.PurchaseRequestStatusId = PurchaseRequestStatuss.Id
+GROUP BY PurchaseRequestStatuss.Name;"
+2025-04-07T14:31:57.513787,tampilkan jumlah permintaan pembelian dikelompokkan berdasarkan status,"SELECT PurchaseRequestStatuss.Name AS Status,
+       COUNT(*) AS Total
+FROM PurchaseRequests
+JOIN PurchaseRequestStatuss ON PurchaseRequests.PurchaseRequestStatusId = PurchaseRequestStatuss.Id
+GROUP BY PurchaseRequestStatuss.Name;"
+2025-04-07T14:33:22.393013,tampilkan jumlah permintaan pembelian dikelompokkan berdasarkan status dalam persentase,"SELECT PurchaseRequestStatuss.Name AS Status,
+       COUNT(*) AS Total,
+       COUNT(*) * 100.0 / (SELECT COUNT(*) FROM PurchaseRequests) AS Percentage
+FROM PurchaseRequests
+JOIN PurchaseRequestStatuss ON PurchaseRequests.PurchaseRequestStatusId = PurchaseRequestStatuss.Id
+GROUP BY PurchaseRequestStatuss.Name;"
